@@ -110,7 +110,7 @@ $conn->close();
     <div class="receipt">
         <div class="logo_details">
             <h2>LeePOS System</h2>
-            <p><strong>Address:</strong> Asawase C -Line Near On The Run</p>
+            <p><strong>Address:</strong> Asawase B- Line Near On The Run</p>
             <p><strong>Contact:</strong> +233 541 987 478</p>
 
         </div>

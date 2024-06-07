@@ -50,7 +50,16 @@ $conn->close();
             document.getElementById("greeting").innerHTML = greeting + ", " + cashierName;
         }
     </script>
-
+<style>
+    .svg-inline--fa {
+        display: none;
+    }
+    .fa-bars-staggered{
+        display: block;
+        color:#fff;
+        font-size: 20px;
+    }
+</style>
 </head>
 
 <body onload="greetUser()">
@@ -69,33 +78,33 @@ $conn->close();
                 <input type="text" id="search-input" placeholder="Search food...">
             </div>
             <div class="swiper-container">
-    <div class="swiper mySwiper2">
-        <div class="swiper-wrapper" id="food-items">
-            <?php if (empty($foods)) : ?>
-                <p>No food items available.</p>
-            <?php else : ?>
-                <?php foreach ($foods as $food) : ?>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="<?php echo $food['image']; ?>" alt="<?php echo $food['name']; ?>">
-                            <div class="card_info">
-                                <h4><?php echo $food['name']; ?></h4>
-                                <p>GH₵<?php echo number_format($food['price'], 2); ?></p>
-                                <button class="add-to-order" data-id="<?php echo $food['id']; ?>" data-name="<?php echo $food['name']; ?>" data-price="<?php echo $food['price']; ?>">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
+                <div class="swiper mySwiper2">
+                    <div class="swiper-wrapper" id="food-items">
+                        <?php if (empty($foods)) : ?>
+                            <p>No food items available.</p>
+                        <?php else : ?>
+                            <?php foreach ($foods as $food) : ?>
+                                <div class="swiper-slide">
+                                    <div class="card">
+                                        <img src="<?php echo $food['image']; ?>" alt="<?php echo $food['name']; ?>">
+                                        <div class="card_info">
+                                            <h4><?php echo $food['name']; ?></h4>
+                                            <p>GH₵<?php echo number_format($food['price'], 2); ?></p>
+                                            <button class="add-to-order" data-id="<?php echo $food['id']; ?>" data-name="<?php echo $food['name']; ?>" data-price="<?php echo $food['price']; ?>">
+                                                <i class="fa-solid fa-cart-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-        <div class="arrows">
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </div>
-</div>
+                    <div class="arrows">
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
             <div class="order-section">
                 <div class="forms">
                     <h2>Order Details</h2>
@@ -168,41 +177,40 @@ $conn->close();
             disableMobile: true
         });
 
-   // JavaScript to filter the food items based on the search input
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const foodItemsContainer = document.getElementById('food-items');
-    const swiperSlides = foodItemsContainer.getElementsByClassName('swiper-slide');
+        // JavaScript to filter the food items based on the search input
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const foodItemsContainer = document.getElementById('food-items');
+            const swiperSlides = foodItemsContainer.getElementsByClassName('swiper-slide');
 
-    // Create a "No results found" message
-    const noResultsMessage = document.createElement('div');
-    noResultsMessage.id = 'no-results-message';
-    noResultsMessage.textContent = 'No results found';
-    noResultsMessage.style.display = 'none';
-    noResultsMessage.style.textAlign = 'center';
-    noResultsMessage.style.fontSize = '1em';
-    noResultsMessage.style.marginTop = '20px';
-    foodItemsContainer.appendChild(noResultsMessage);
+            // Create a "No results found" message
+            const noResultsMessage = document.createElement('div');
+            noResultsMessage.id = 'no-results-message';
+            noResultsMessage.textContent = 'No results found';
+            noResultsMessage.style.display = 'none';
+            noResultsMessage.style.textAlign = 'center';
+            noResultsMessage.style.fontSize = '1em';
+            noResultsMessage.style.marginTop = '20px';
+            foodItemsContainer.appendChild(noResultsMessage);
 
-    searchInput.addEventListener('keyup', function() {
-        const filter = searchInput.value.toLowerCase();
-        let hasResults = false;
+            searchInput.addEventListener('keyup', function() {
+                const filter = searchInput.value.toLowerCase();
+                let hasResults = false;
 
-        Array.from(swiperSlides).forEach(slide => {
-            const foodName = slide.querySelector('.card_info h2').textContent.toLowerCase();
-            if (foodName.includes(filter)) {
-                slide.style.display = '';
-                hasResults = true;
-            } else {
-                slide.style.display = 'none';
-            }
+                Array.from(swiperSlides).forEach(slide => {
+                    const foodName = slide.querySelector('.card_info h4').textContent.toLowerCase();
+                    if (foodName.includes(filter)) {
+                        slide.style.display = '';
+                        hasResults = true;
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+
+                // Show or hide the "No results found" message
+                noResultsMessage.style.display = hasResults ? 'none' : 'block';
+            });
         });
-
-        // Show or hide the "No results found" message
-        noResultsMessage.style.display = hasResults ? 'none' : 'block';
-    });
-});
-
     </script>
 </body>
 
